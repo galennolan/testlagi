@@ -9,12 +9,12 @@ class ColumnWidget extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Widget Column'),
         ),
-        body: Column(
+        body: Row(
           children: const [
-            Text('Kolom 1'),
-            Text('Kolom 2'),
-            Text('Kolom 3'),
-            Text('Kolom 4'),
+            Text('Baris 1'),
+            Text('Baris 2'),
+            Text('Baris 3'),
+            Text('Baris 4'),
           ],
         ));
   }
