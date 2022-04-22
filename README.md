@@ -1,6 +1,11 @@
 # testlagi
 
 A new Flutter project.
+INi adalah flutter project untuk mahasiswa BSI semester 4 
+Project ini bisa melakukan 
+Login, Registrasi dan CRUD PRoduk
+
+REST API yang digunakan menggunakan codeigniter 4
 
 ## Getting Started
 
