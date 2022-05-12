@@ -5,7 +5,7 @@ INi adalah flutter project untuk mahasiswa BSI semester 4
 Project ini bisa melakukan 
 Login, Registrasi dan CRUD PRoduk
 
-REST API yang digunakan menggunakan codeigniter 4
+REST API yang digunakan menggunakan codeigniter 4 alamatnya ada di toko-api ci 
 
 ## Getting Started
 
