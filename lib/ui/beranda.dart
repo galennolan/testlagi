@@ -1,18 +1,19 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import "dart:io";
 
 class Beranda extends StatelessWidget {
   const Beranda({
     Key? key,
   }) : super(key: key);
 
-  final String url = 'http://192.168.21.166/toko-api/public/produk';
+  final String url = 'http://127.0.0.1/toko-api/public/produk';
 
   Future getProducts() async {
     var response = await http.get(Uri.parse(url));
 
-    print(json.decode(response.body));
+    //print(json.decode(response.body));
     return json.decode(response.body);
   }
 
