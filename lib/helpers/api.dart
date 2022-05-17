@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:tokokita2/helpers/user_info.dart';
-import 'package:tokokita2/helpers/app_exception.dart';
+import 'package:testlagi/helpers/user_info.dart';
+import 'package:testlagi/helpers/app_exception.dart';
 
 //Agar dapat mengirim atau menerima permintaan ke Rest API, dibuat sebuah fungsi baik itu method POST, GET dan DELETE
 

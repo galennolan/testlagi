@@ -7,7 +7,7 @@ class UserInfo {
     return pref.setString("token", value);
   }
 
-  Future<String> getToken() async {
+  Future<String?> getToken() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
     return pref.getString("token");
   }
@@ -17,7 +17,7 @@ class UserInfo {
     return pref.setInt("userID", value);
   }
 
-  Future<int> getUserID() async {
+  Future<int?> getUserID() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
     return pref.getInt("userID");
   }
