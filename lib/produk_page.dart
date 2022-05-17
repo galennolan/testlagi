@@ -16,7 +16,7 @@ class _ProdukPageState extends State<ProdukPage> {
         actions: [
           GestureDetector(
             //menampilkan icon+
-            child: Icon(Icons.add),
+            child: Icon(Icons.access_alarm),
             //pada saat icon + ditap
             onTap: () async {
               //berpindah ke halaman ProdukForm
