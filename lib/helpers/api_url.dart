@@ -1,6 +1,5 @@
 class ApiUrl {
-  static const String baseUrl =
-      'http://7725-2001-448a-402b-1799-2907-7300-5777-4294.ngrok.io';
+  static const String baseUrl = 'http://local4.ngrok.io';
 
   static const String registrasi = baseUrl + '/registrasi';
   static const String login = baseUrl + '/login';
