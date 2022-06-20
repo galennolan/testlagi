@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:testlagi/helpers/api.dart';
 import 'package:testlagi/helpers/api_url.dart';
 import 'package:testlagi/model/registrasi.dart';
@@ -11,7 +10,7 @@ class RegistrasiBloc {
 
     var body = {"nama": nama, "email": email, "password": password};
 
-    var response = await Api().post(apiUrl, body);
+    final response = await Api().post(apiUrl, body);
     var jsonObj = json.decode(response.body);
     return Registrasi.fromJson(jsonObj);
   }

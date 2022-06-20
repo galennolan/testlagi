@@ -8,10 +8,10 @@ class Consts {
 }
 
 class WarningDialog extends StatelessWidget {
-  final String description;
-  final VoidCallback okClick;
+  final String? description;
+  final VoidCallback? okClick;
 
-  WarningDialog({required this.description, required this.okClick});
+  WarningDialog({Key? key, this.description, this.okClick});
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +55,7 @@ class WarningDialog extends StatelessWidget {
           ),
           SizedBox(height: 16.0),
           Text(
-            description,
+            description!,
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16.0,
@@ -67,7 +67,7 @@ class WarningDialog extends StatelessWidget {
             child: FlatButton(
               onPressed: () {
                 Navigator.of(context).pop(); // To close the dialog
-                okClick();
+                okClick!();
               },
               child: Text("OK"),
             ),

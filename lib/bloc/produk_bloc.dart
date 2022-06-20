@@ -32,8 +32,8 @@ class ProdukBloc {
     return jsonObj['status'];
   }
 
-  static Future<bool> updateProduk({Produk? produk}) async {
-    String apiUrl = ApiUrl.updateProduk(produk!.id);
+  static Future<bool> updateProduk({required Produk produk}) async {
+    String apiUrl = ApiUrl.updateProduk(produk.id!);
 
     var body = {
       "kode_produk": produk.kodeProduk,
@@ -46,8 +46,8 @@ class ProdukBloc {
     return jsonObj['data'];
   }
 
-  static Future<bool> deleteProduk({required int id}) async {
-    String apiUrl = ApiUrl.deleteProduk(id);
+  static Future<bool> deleteProduk(int? id) async {
+    String apiUrl = ApiUrl.deleteProduk(id!);
 
     var response = await Api().delete(apiUrl);
     var jsonObj = json.decode(response.body);

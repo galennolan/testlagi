@@ -1,12 +1,14 @@
 class Registrasi {
-  int code;
-  bool status;
-  String data;
+  int? code;
+  bool? status;
+  String? data;
 
-  Registrasi({required this.code, required this.status, required this.data});
+  Registrasi({this.code, this.status, this.data});
 
-  factory Registrasi.fromJson(Map<String, dynamic> obj) {
+  factory Registrasi.fromJson(Map<String, dynamic> json) {
     return Registrasi(
-        code: obj['code'], status: obj['status'], data: obj['data']);
+        code: json['code'],
+        status: json['status'],
+        data: json['data'].toString());
   }
 }

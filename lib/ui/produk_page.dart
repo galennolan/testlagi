@@ -1,6 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:testlagi/produk_form.dart';
-import 'package:testlagi/produk_detail.dart';
+import 'package:testlagi/bloc/logout_bloc.dart';
+import 'package:testlagi/bloc/produk_bloc.dart';
+import 'package:testlagi/model/produk.dart';
+import 'package:testlagi/ui/produk_detail.dart';
+import 'package:testlagi/ui/produk_form.dart';
+import 'package:testlagi/ui/produk_list.dart';
+
+import 'login_page.dart';
 
 class ProdukPage extends StatefulWidget {
   @override
@@ -12,75 +19,95 @@ class _ProdukPageState extends State<ProdukPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Data Produk"),
+        title: Text('List Produk'),
         actions: [
-          GestureDetector(
-            //menampilkan icon+
-            child: Icon(Icons.add),
-            //pada saat icon + ditap
-            onTap: () async {
-              //berpindah ke halaman ProdukForm
-              Navigator.push(context,
-                  new MaterialPageRoute(builder: (context) => ProdukForm()));
-            },
-          )
+          Padding(
+              padding: EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                child: Icon(Icons.add, size: 26.0),
+                onTap: () async {
+                  Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (context) => ProdukForm()));
+                },
+              ))
         ],
       ),
-      body: ListView(
-        children: [
-          //List 1
-          ItemProduk(
-            kodeProduk: "A001",
-            namaProduk: "Kulkas",
-            harga: 2500000,
-          ),
-
-          //List 2
-          ItemProduk(
-            kodeProduk: "A002",
-            namaProduk: "TV",
-            harga: 5000000,
-          ),
-
-          //List 3
-          ItemProduk(
-            kodeProduk: "A003",
-            namaProduk: "Mesin Cuci",
-            harga: 3000000,
-          ),
-        ],
+      drawer: Drawer(
+        child: ListView(
+          children: [
+            ListTile(
+              title: Text('Logout'),
+              trailing: Icon(Icons.logout),
+              onTap: () async {
+                LogoutBloc.logout().then((value) {
+                  Navigator.pushReplacement(context,
+                      new MaterialPageRoute(builder: (context) => LoginPage()));
+                });
+              },
+            ),
+          ],
+        ),
+      ),
+      body: FutureBuilder<List>(
+        future: ProdukBloc.getProduks(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) print(snapshot.hasError);
+          return snapshot.hasData
+              ? ListProduk(
+                  list: snapshot.data,
+                )
+              : Center(
+                  child: CircularProgressIndicator(),
+                );
+        },
       ),
     );
   }
 }
 
-class ItemProduk extends StatelessWidget {
-  final String kodeProduk;
-  final String namaProduk;
-  final int harga;
-  //membuat constructor
-  ItemProduk(
-      {required this.kodeProduk,
-      required this.namaProduk,
-      required this.harga});
+class ListProduk extends StatelessWidget {
+  final List? list;
+  ListProduk({this.list});
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Card(
-        child: ListTile(
-          title: Text(namaProduk),
-          subtitle: Text(harga.toString()), //parsing dari int ke String
+    return ListView.builder(
+      itemCount: list == null ? 0 : list!.length,
+      itemBuilder: (context, i) {
+        return ItemProduk(
+          produk: list![i],
+        );
+      },
+    );
+  }
+}
+
+class ItemProduk extends StatelessWidget {
+  final Produk produk;
+
+  ItemProduk({Key? key, required this.produk}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context,
+              new MaterialPageRoute(
+                  builder: (context) => ProdukDetail(
+                        produk: produk,
+                      )));
+        },
+        child: Card(
+          child: ListTile(
+            title: Text(produk.namaProduk.toString()),
+            subtitle: Text(produk.hargaProduk.toString()),
+          ),
         ),
       ),
-      onTap: () {
-        //Pindah ke halaman produk detail dan mengirim data
-        Navigator.of(context).push(new MaterialPageRoute(
-            builder: (context) => ProdukDetail(
-                  kodeProduk: kodeProduk,
-                  namaProduk: namaProduk,
-                  harga: harga,
-                )));
-      },
     );
   }
 }

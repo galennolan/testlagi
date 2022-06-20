@@ -3,8 +3,8 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class AmbilData extends StatelessWidget {
-  final String apiUrl = "https://reqres.in/api/users?per_page=15";
-
+  //final String apiUrl = "https://reqres.in/api/users?per_page=15";
+  final String apiUrl = "http://192.168.43.166/ci4/public/produk";
   Future<List<dynamic>> _inidatauser() async {
     var result = await http.get(Uri.parse(apiUrl));
     return json.decode(result.body)['data'];
@@ -21,22 +21,7 @@ class AmbilData extends StatelessWidget {
           future: _inidatauser(),
           builder: (BuildContext context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
-              return ListView.builder(
-                  padding: EdgeInsets.all(10),
-                  itemCount: 5,
-                  itemBuilder: (BuildContext context, int index) {
-                    return ListTile(
-                      leading: CircleAvatar(
-                        radius: 30,
-                        backgroundImage:
-                            NetworkImage(snapshot.data[index]['avatar']),
-                      ),
-                      title: Text(snapshot.data[index]['first_name'] +
-                          " " +
-                          snapshot.data[index]['last_name']),
-                      subtitle: Text(snapshot.data[index]['email']),
-                    );
-                  });
+              return Text('ada data');
             } else {
               return Center(child: CircularProgressIndicator());
             }

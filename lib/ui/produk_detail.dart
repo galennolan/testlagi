@@ -1,11 +1,16 @@
+import 'package:http/http.dart';
+
 import 'package:flutter/material.dart';
+import 'package:testlagi/bloc/produk_bloc.dart';
 import 'package:testlagi/model/produk.dart';
 import 'package:testlagi/ui/produk_form.dart';
 import 'package:testlagi/ui/produk_page.dart';
+import 'package:testlagi/widget/warning_dialog.dart';
 
 class ProdukDetail extends StatefulWidget {
   Produk? produk;
-  ProdukDetail({this.produk});
+  ProdukDetail({Key? key, this.produk}) : super(key: key);
+
   @override
   _ProdukDetailState createState() => _ProdukDetailState();
 }
@@ -48,8 +53,12 @@ class _ProdukDetailState extends State<ProdukDetail> {
             child: Text("EDIT"),
             color: Colors.green,
             onPressed: () {
-              Navigator.push(context,
-                  new MaterialPageRoute(builder: (context) => ProdukForm()));
+              Navigator.push(
+                  context,
+                  new MaterialPageRoute(
+                      builder: (context) => ProdukForm(
+                            produk: widget.produk!,
+                          )));
             }),
         //Tombol Hapus
         RaisedButton(
@@ -65,15 +74,24 @@ class _ProdukDetailState extends State<ProdukDetail> {
       content: Text("Yakin ingin menghapus data ini?"),
       actions: [
         //tombol hapus
-        RaisedButton(
+        OutlinedButton(
           child: Text("Ya"),
-          color: Colors.green,
-          onPressed: () {},
+          onPressed: () {
+            ProdukBloc.deleteProduk(widget.produk?.id).then((value) {
+              Navigator.of(context).push(new MaterialPageRoute(
+                  builder: (BuildContext context) => ProdukPage()));
+            }, onError: (error) {
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) => WarningDialog(
+                        description: "hapus data gagal nih, coba lagi gih",
+                      ));
+            });
+          },
         ),
         //tombol batal
-        RaisedButton(
+        OutlinedButton(
           child: Text("Batal"),
-          color: Colors.red,
           onPressed: () => Navigator.pop(context),
         )
       ],

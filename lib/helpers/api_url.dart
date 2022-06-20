@@ -1,5 +1,5 @@
 class ApiUrl {
-  static const String baseUrl = 'http://local4.ngrok.io';
+  static const String baseUrl = 'http://192.168.43.166/ci4/public/';
 
   static const String registrasi = baseUrl + '/registrasi';
   static const String login = baseUrl + '/login';
@@ -11,10 +11,10 @@ class ApiUrl {
   }
 
   static String showProduk(int id) {
-    return baseUrl + '/produk' + id.toString();
+    return baseUrl + '/produk/' + id.toString();
   }
 
   static String deleteProduk(int id) {
-    return baseUrl + '/produk' + id.toString();
+    return baseUrl + '/produk/' + id.toString();
   }
 }

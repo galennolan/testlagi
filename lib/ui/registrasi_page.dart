@@ -1,6 +1,13 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
+import 'package:testlagi/widget/warning_dialog.dart';
+import 'package:testlagi/bloc/registrasi_bloc.dart';
+import 'package:testlagi/widget/success_dialog.dart';
 
 class RegistrasiPage extends StatefulWidget {
+  RegistrasiPage({Key? key}) : super(key: key);
+
   @override
   _RegistrasiPageState createState() => _RegistrasiPageState();
 }
@@ -15,27 +22,25 @@ class _RegistrasiPageState extends State<RegistrasiPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Registrasi"),
-        ),
-        body: SingleChildScrollView(
-          child: Container(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _namaTextField(),
-                    _emailTextField(),
-                    _passwordTextField(),
-                    _passwordKonfirmasiTextField(),
-                    _buttonRegistrasi()
-                  ],
-                ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Registrasi"),
+      ),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _namaTextField(),
+                  _emailTextField(),
+                  _passwordTextField(),
+                  _passwordKonfirmasiTextField(),
+                  _buttonRegistrasi()
+                ],
               ),
             ),
           ),
@@ -116,10 +121,47 @@ class _RegistrasiPageState extends State<RegistrasiPage> {
   }
 
   Widget _buttonRegistrasi() {
-    return RaisedButton(
+    return ElevatedButton(
         child: Text("Registrasi"),
         onPressed: () {
           var validate = _formKey.currentState!.validate();
+          if (validate) {
+            if (!_isLoading) _submit();
+          }
         });
   }
+
+  void _submit() {
+    _formKey.currentState!.save();
+
+    setState(() {
+      _isLoading = true;
+    });
+    RegistrasiBloc.registrasi(
+            nama: _namaTextboxController.text,
+            email: _emailTextboxController.text,
+            password: _passwordTextboxController.text)
+        .then((value) {
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) => SuccessDialog(
+                description: "Registrasi berhasil, silahkan login",
+                okClick: () {
+                  Navigator.pop(context);
+                },
+              ));
+    }, onError: (error) {
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) => WarningDialog(
+                description: "Registrasi gagal, silahkan coba lagi",
+              ));
+    });
+    setState(() {
+      _isLoading = false;
+    });
+  }
 }
+//Membuat Tombol Registrasi

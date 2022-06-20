@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:testlagi/helpers/user_info.dart';
+import 'package:testlagi/produk_pagdde.dart';
+import 'package:testlagi/tampilanakun.dart';
+//import 'package:testlagi/tampilanakun.dart';
 import 'package:testlagi/ui/login_page.dart';
 import 'package:testlagi/ui/produk_page.dart';
+import 'package:testlagi/ui/registrasi_page.dart';
 
 void main() => runApp(MyApp());
 

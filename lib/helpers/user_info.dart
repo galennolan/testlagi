@@ -1,5 +1,5 @@
 import 'package:shared_preferences/shared_preferences.dart';
-// untuk menyimpan data dan mengambil data
+// untuk menyimpan data dan mengambil data dalam memori hp
 
 class UserInfo {
   Future setToken(String value) async {

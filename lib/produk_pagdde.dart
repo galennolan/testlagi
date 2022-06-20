@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:testlagi/produk_form.dart';
 import 'package:testlagi/produk_detail.dart';
 
-class ProdukPage extends StatefulWidget {
+class ProdukPadge extends StatefulWidget {
   @override
   _ProdukPageState createState() => _ProdukPageState();
 }
 
-class _ProdukPageState extends State<ProdukPage> {
+class _ProdukPageState extends State<ProdukPadge> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
